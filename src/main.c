@@ -21,6 +21,10 @@ int debug=0;
 
 // Animation timer
 double t_offset;
+double thy=0;
+
+// Texture names
+unsigned int texture[1];
 
 void display() {
   // Animation trigger
@@ -34,6 +38,8 @@ void display() {
   glLoadIdentity();
   // Point the camera.
   point_camera();
+  // Transform the scene accordingly
+  glRotated(thy,0,1,0);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * ANIMATION *
@@ -57,11 +63,7 @@ void display() {
    *  OBJECTS  *
    *************/
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  board();
-  cylinder(-1,0,1,
-  	       270,0,
-  	       2,.03,
-  	       100);
+  board(texture[0]);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * DEBUGGING *
@@ -133,6 +135,7 @@ void special(int key,int x,int y) {
 
 void idle() {
   Project(fov,asp,dim);
+  thy += .5;
   glutPostRedisplay();
 }
 
@@ -156,6 +159,8 @@ int main(int argc, char* argv[]) {
   glutReshapeFunc(reshape);
   glutSpecialFunc(special);
   glutIdleFunc(idle);
+  // Load textures
+  texture[0] = LoadTexBMP("./src/textures/grid.bmp");
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();

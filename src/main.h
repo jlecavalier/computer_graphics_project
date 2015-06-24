@@ -35,7 +35,7 @@ double animate_scene (int l,int r,int u,int d,
 
 // OBJECTS
 void axes(double length);
-void board();
+void board(unsigned int grid_tex);
 void cylinder(double x,double y,double z,
 	          double thx,double thz,
 	          double h,double radius,
