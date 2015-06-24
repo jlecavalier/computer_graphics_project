@@ -16,6 +16,9 @@ int animate_left=0;
 int animate_up=0;
 int animate_down=0;
 
+// Debug trigger
+int debug=0;
+
 // Animation timer
 double t_offset;
 
@@ -28,14 +31,12 @@ void display() {
   glLoadIdentity();
   // Point the camera.
   point_camera();
-  // Axes
-  axes(.5);
   // Animate the scene if it needs to be animated
   if (animate_scene(animate_left,
                     animate_right,
                     animate_up,
                     animate_down,
-                    t_offset) > 3000) {
+                    t_offset) >= 3000) {
   // The animation completed. Reset the 
   // animation triggers
     animate_right = 0;
@@ -43,14 +44,20 @@ void display() {
     animate_down = 0;
     animate_left = 0;
   }
-  // Print info about the animation
-  glColor3f(1,1,1);
-  glWindowPos2i(5,5);
-  Print("Animation trigger: %s",
-       (animate_left || 
-        animate_right || 
-        animate_down || 
-        animate_up) ? "YES" : "NO");
+  if (debug) {
+    // Axes
+    axes(1);
+    // Print info about the animation
+    glColor3f(1,1,1);
+    glWindowPos2i(5,5);
+    Print("Animation trigger: %s",
+         (animate_left || 
+          animate_right || 
+          animate_down || 
+          animate_up) ? "YES" : "NO");
+    glWindowPos2i(win_width-130,win_height-20);
+    Print("DEBUG MODE");
+  }
   // End
   glFlush();
   glutSwapBuffers();
@@ -60,6 +67,10 @@ void key(unsigned char ch,int x,int y) {
   // Exit when the user presses ESC
   if (ch == 27) {
     exit(0);
+  }
+  // Debug mode
+  else if (ch == 'd' || ch == 'D') {
+    debug = 1 - debug;
   }
   glutPostRedisplay();
 }
@@ -99,6 +110,11 @@ void special(int key,int x,int y) {
   Project(fov,asp,dim);
 }
 
+void idle() {
+  Project(fov,asp,dim);
+  glutPostRedisplay();
+}
+
 /*
   Start up GLUT and tell it what to do
 */
@@ -118,6 +134,7 @@ int main(int argc, char* argv[]) {
   glutKeyboardFunc(key);
   glutReshapeFunc(reshape);
   glutSpecialFunc(special);
+  glutIdleFunc(idle);
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();

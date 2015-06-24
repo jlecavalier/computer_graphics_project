@@ -22,7 +22,7 @@ void axes(double length) {
   glEnd();
 
   // Axis labels
-  glRasterPos3i(length,0,0);
+  glRasterPos3d(length,0,0);
   Print("X");
   glRasterPos3d(0,length,0);
   Print("Y");
