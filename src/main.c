@@ -1,9 +1,23 @@
 #include "main.h"
 
 // Global Vars
+// Window sizing
 double win_width;
 double win_height;
-double asp;
+double asp=1;
+
+// Projection
+int fov=55;
+double dim=4;
+
+// Animation triggers
+int animate_right=0;
+int animate_left=0;
+int animate_up=0;
+int animate_down=0;
+
+// Animation timer
+double t_offset;
 
 void display() {
   // Erase the window and the depth buffer
@@ -12,10 +26,32 @@ void display() {
   glEnable(GL_DEPTH_TEST);
   // Undo transforms
   glLoadIdentity();
-  // Print hello, world!
+  // Point the camera.
+  point_camera();
+  // Axes
+  axes(.5);
+  // Animate the scene if it needs to be animated
+  if (animate_scene(animate_left,
+                    animate_right,
+                    animate_up,
+                    animate_down,
+                    t_offset) > 3000) {
+  // The animation completed. Reset the 
+  // animation triggers
+    animate_right = 0;
+    animate_up = 0;
+    animate_down = 0;
+    animate_left = 0;
+  }
+  // Print info about the animation
   glColor3f(1,1,1);
-  glWindowPos2i(5,25);
-  Print("Hello, world!");
+  glWindowPos2i(5,5);
+  Print("Animation trigger: %s",
+       (animate_left || 
+        animate_right || 
+        animate_down || 
+        animate_up) ? "YES" : "NO");
+  // End
   glFlush();
   glutSwapBuffers();
 }
@@ -36,7 +72,31 @@ void reshape(int width,int height) {
   win_height = (double)height;
   // Set the viewport to the entire window
   glViewport(0,0,width,height);
+  Project(fov,asp,dim);
+}
+
+void special(int key,int x,int y) {
+  if (!(animate_up || animate_right || 
+        animate_down || animate_left)) {
+    if (key == GLUT_KEY_RIGHT) {
+      animate_right = 1;
+      t_offset = glutGet(GLUT_ELAPSED_TIME)/1.06;
+    }
+    if (key == GLUT_KEY_LEFT) {
+      animate_left = 1;
+      t_offset = glutGet(GLUT_ELAPSED_TIME)/1.06;
+    }
+    if (key == GLUT_KEY_UP) {
+      animate_up = 1;
+      t_offset = glutGet(GLUT_ELAPSED_TIME)/1.06;
+    }
+    if (key == GLUT_KEY_DOWN) {
+      animate_down = 1;
+      t_offset = glutGet(GLUT_ELAPSED_TIME)/1.06;
+    }
+  }
   glutPostRedisplay();
+  Project(fov,asp,dim);
 }
 
 /*
@@ -57,6 +117,7 @@ int main(int argc, char* argv[]) {
   glutDisplayFunc(display);
   glutKeyboardFunc(key);
   glutReshapeFunc(reshape);
+  glutSpecialFunc(special);
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();

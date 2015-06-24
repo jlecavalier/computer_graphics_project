@@ -13,7 +13,7 @@ void Project(int fov,double asp,double dim) {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   // Perspective transformation
-  gluPerspective(fov,asp,dim/4,8*dim);
+  gluPerspective(fov,asp,dim/4,4*dim);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }

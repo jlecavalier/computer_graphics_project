@@ -29,6 +29,12 @@ unsigned int LoadTexBMP(const char* file);
 void ErrCheck(const char* where);
 void Fatal(const char* format , ...);
 void Vertex(int th,int ph,int out);
+void point_camera();
+double animate_scene (int l,int r,int u,int d,
+	                  double t_offset);
+
+// OBJECTS
+void axes(double length);
 
 #ifdef __cplusplus
 }
