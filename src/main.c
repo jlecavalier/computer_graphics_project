@@ -23,6 +23,9 @@ int debug=0;
 double t_offset;
 
 void display() {
+  // Animation trigger
+  int a_trigger = (animate_left || animate_right ||
+  	               animate_up || animate_down);
   // Erase the window and the depth buffer
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   // Enable Z-Buffering
@@ -31,6 +34,11 @@ void display() {
   glLoadIdentity();
   // Point the camera.
   point_camera();
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  /*************
+   * ANIMATION *
+   *************/
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   // Animate the scene if it needs to be animated
   if (animate_scene(animate_left,
                     animate_right,
@@ -44,17 +52,30 @@ void display() {
     animate_down = 0;
     animate_left = 0;
   }
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  /*************
+   *  OBJECTS  *
+   *************/
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  board();
+  cylinder(-1,0,1,
+  	       270,0,
+  	       2,.03,
+  	       100);
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  /*************
+   * DEBUGGING *
+   *************/
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   if (debug) {
     // Axes
     axes(1);
     // Print info about the animation
     glColor3f(1,1,1);
     glWindowPos2i(5,5);
-    Print("Animation trigger: %s",
-         (animate_left || 
-          animate_right || 
-          animate_down || 
-          animate_up) ? "YES" : "NO");
+    Print("Animation trigger: %s",a_trigger ? "YES" : "NO");
+    glWindowPos2i(5,20);
+    Print("Animation frame: %f",a_trigger ? (glutGet(GLUT_ELAPSED_TIME)/1.06)-t_offset : 0);
     glWindowPos2i(win_width-130,win_height-20);
     Print("DEBUG MODE");
   }

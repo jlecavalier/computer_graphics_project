@@ -35,6 +35,11 @@ double animate_scene (int l,int r,int u,int d,
 
 // OBJECTS
 void axes(double length);
+void board();
+void cylinder(double x,double y,double z,
+	          double thx,double thz,
+	          double h,double radius,
+	          double num_quads);
 
 #ifdef __cplusplus
 }
