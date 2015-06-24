@@ -24,7 +24,21 @@ double t_offset;
 double thy=0;
 
 // Texture names
-unsigned int texture[1];
+unsigned int texture[2];
+
+static void ball(double x,double y,double z,double r)
+{
+   //  Save transformation
+   glPushMatrix();
+   //  Offset, scale and rotate
+   glTranslated(x,y,z);
+   glScaled(r,r,r);
+   //  White ball
+   glColor3f(1,1,1);
+   glutSolidSphere(1.0,16,16);
+   //  Undo transofrmations
+   glPopMatrix();
+}
 
 void display() {
   // Animation trigger
@@ -39,7 +53,56 @@ void display() {
   // Point the camera.
   point_camera();
   // Transform the scene accordingly
-  glRotated(thy,0,1,0);
+  glRotated(0,0,1,0);
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  /*************
+   * LIGHTING  *
+   *************/
+  //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  float Ambient[] = {.6,.6,.6,1.0};
+  float Diffuse[] = {.5,.5,.5,1.0};
+  float Specular[] = {2.0,2.0,2.0,1.0};
+  glShadeModel(GL_SMOOTH);
+
+  // Light 0
+  float Position0[] = {.15,1,1,1};
+  //ball(Position0[0],Position0[1],Position0[2],0.1);
+  glEnable(GL_NORMALIZE);
+  glEnable(GL_LIGHTING);
+  glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+  glEnable(GL_COLOR_MATERIAL);
+  glEnable(GL_LIGHT0);
+  glLightfv(GL_LIGHT0,GL_AMBIENT,Ambient);
+  glLightfv(GL_LIGHT0,GL_DIFFUSE,Diffuse);
+  glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
+  glLightfv(GL_LIGHT0,GL_POSITION,Position0);
+
+  // Light 1
+  float Position1[] = {-.15,1,-1,1};
+  //ball(Position1[0],Position1[1],Position1[2],0.1);
+  glEnable(GL_LIGHT1);
+  glLightfv(GL_LIGHT1,GL_AMBIENT,Ambient);
+  glLightfv(GL_LIGHT1,GL_DIFFUSE,Diffuse);
+  glLightfv(GL_LIGHT1,GL_SPECULAR,Specular);
+  glLightfv(GL_LIGHT1,GL_POSITION,Position1);
+
+  // Light 2
+  float Position2[] = {-1,1,-.15,1};
+  //ball(Position2[0],Position2[1],Position2[2],0.1);
+  glEnable(GL_LIGHT2);
+  glLightfv(GL_LIGHT2,GL_AMBIENT,Ambient);
+  glLightfv(GL_LIGHT2,GL_DIFFUSE,Diffuse);
+  glLightfv(GL_LIGHT2,GL_SPECULAR,Specular);
+  glLightfv(GL_LIGHT2,GL_POSITION,Position2);
+
+  // Light 3
+  float Position3[] = {1,1,.15,1};
+  //ball(Position3[0],Position3[1],Position3[2],0.1);
+  glEnable(GL_LIGHT3);
+  glLightfv(GL_LIGHT3,GL_AMBIENT,Ambient);
+  glLightfv(GL_LIGHT3,GL_DIFFUSE,Diffuse);
+  glLightfv(GL_LIGHT3,GL_SPECULAR,Specular);
+  glLightfv(GL_LIGHT3,GL_POSITION,Position3);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * ANIMATION *
@@ -63,7 +126,8 @@ void display() {
    *  OBJECTS  *
    *************/
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  board(texture[0]);
+  board(texture[0],
+  	    texture[1]);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * DEBUGGING *
@@ -135,7 +199,7 @@ void special(int key,int x,int y) {
 
 void idle() {
   Project(fov,asp,dim);
-  thy += .5;
+  thy += 1;
   glutPostRedisplay();
 }
 
@@ -161,6 +225,7 @@ int main(int argc, char* argv[]) {
   glutIdleFunc(idle);
   // Load textures
   texture[0] = LoadTexBMP("./src/textures/grid.bmp");
+  texture[1] = LoadTexBMP("./src/textures/grid.bmp");
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();
