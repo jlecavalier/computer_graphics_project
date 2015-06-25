@@ -8,7 +8,7 @@ all: $(EXE)
 AUX=src/auxiliary/
 OBJ=src/objects/
 AUXLIB=$(AUX)print.o $(AUX)project.o $(AUX)loadtexbmp.o $(AUX)errcheck.o $(AUX)fatal.o $(AUX)vertex.o $(AUX)point_camera.o $(AUX)animate_scene.o
-OBJLIB=$(OBJ)axes.o $(OBJ)board.o $(OBJ)cylinder.o $(OBJ)sphere.o $(OBJ)cone.o
+OBJLIB=$(OBJ)axes.o $(OBJ)board.o $(OBJ)cylinder.o $(OBJ)sphere.o $(OBJ)cone.o $(OBJ)hourglass.o
 
 #  MinGW
 ifeq "$(OS)" "Windows_NT"
@@ -46,6 +46,7 @@ src/objects/board.o: $(OBJ)board.c src/main.h
 src/objects/cylinder.o: $(OBJ)cylinder.c src/main.h
 src/objects/sphere.o: $(OBJ)sphere.c src/main.h
 src/objects/cone.o: $(OBJ)cone.c src/main.h
+src/objects/hourglass.o: $(OBJ)hourglass.c src/main.h
 
 # Create archives
 src/main.a:$(AUXLIB) $(OBJLIB)

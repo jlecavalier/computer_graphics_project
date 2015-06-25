@@ -46,7 +46,12 @@ void sphere(float x,float y,float z,double r,
 	        unsigned int tex);
 void cone(double x,double y,double z,
 	      double radius,double height,
-	      double thx,double thy);
+	      double thx,double thy,
+	      unsigned int tex);
+void hourglass(double x,double y,double z,
+	           double radius,double height,
+	           double thx,double thz,
+	           unsigned int tex);
 
 #ifdef __cplusplus
 }

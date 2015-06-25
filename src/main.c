@@ -32,7 +32,7 @@ double thz=0;
 const double tilt_frames = 1500;
 
 // Texture names
-unsigned int texture[2];
+unsigned int texture[3];
 
 static void ball(double x,double y,double z,double r)
 {
@@ -140,12 +140,11 @@ void display() {
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   board(texture[0],
   	    texture[1]);
-  cone(0,0,0,
-  	   .05,.5,
-  	   0,0);
-  cone(0,.5,0,
-  	   .05,.5,
-  	   180,0);
+
+  hourglass(0,0,0,
+  	        .05,.5,
+  	        0,0,
+  	        texture[2]);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * DEBUGGING *
@@ -287,6 +286,7 @@ int main(int argc, char* argv[]) {
   // Load textures
   texture[0] = LoadTexBMP("./src/textures/grid.bmp");
   texture[1] = LoadTexBMP("./src/textures/graph.bmp");
+  texture[2] = LoadTexBMP("./src/textures/glass.bmp");
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();
