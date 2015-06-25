@@ -44,6 +44,9 @@ void cylinder(double x,double y,double z,
 void sphere(float x,float y,float z,double r,
 	        double thx,double thy,double thz,
 	        unsigned int tex);
+void cone(double x,double y,double z,
+	      double radius,double height,
+	      double thx,double thy);
 
 #ifdef __cplusplus
 }

@@ -5,9 +5,9 @@ void cylinder(double x,double y,double z,
 	          double h,double radius,
 	          double num_quads,unsigned int cyl_tex) {
 
-  float white[] = {1,1,1,1};
+  float white[] = {221.0/255.0,213.0/255.0,242.0/255.0,1};
   float shinyvec[1];
-  shinyvec[0] = 128.0;
+  shinyvec[0] = 64.0;
   glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
 
@@ -35,6 +35,7 @@ void cylinder(double x,double y,double z,
   // The tube part
   double i;
   double delta = pi2 / num_quads;
+  glBegin(GL_QUADS);
   for (i=0.0;i<=pi2;i+=delta) {
   	  double x0 = radius * cos(i);
   	  double x1 = radius * cos(i+delta);
@@ -42,47 +43,45 @@ void cylinder(double x,double y,double z,
   	  double z1 = radius * sin(i+delta);
   	  double t_x0 = i/pi2;
   	  double t_x1 = (i+delta)/pi2;
-  	  glBegin(GL_QUADS);
 	  // Upper left
-	  glNormal3d(x1,0,z1);
+	  glNormal3f(x1,0,z1);
 	  glTexCoord2f(t_x0,h*12);
 	  glVertex3f(x1,1,z1);
 	  // Upper right
-	  glNormal3d(x0,0,z0);
+	  glNormal3f(x0,0,z0);
 	  glTexCoord2f(t_x1,h*12);
 	  glVertex3f(x0,1,z0);
 	  // Lower right
-	  glNormal3d(x0,0,z0);
+	  glNormal3f(x0,0,z0);
 	  glTexCoord2f(t_x1,0);
 	  glVertex3f(x0,0,z0);
 	  // Lower left
-	  glNormal3d(x1,0,z1);
+	  glNormal3f(x1,0,z1);
 	  glTexCoord2f(t_x0,0);
 	  glVertex3f(x1,0,z1);
-
-	  glEnd();
   }
+  glEnd();
   glDisable(GL_TEXTURE_2D);
 
   // The top lid
   glColor3f(0,0,0);
   glBegin(GL_TRIANGLE_FAN);
+  glNormal3f(0,1,0);
   glVertex3f(0,1,0);
   for (i=0.0;i<=pi2;i+=delta) {
   	double x = radius * cos(i);
   	double z = radius * sin(i);
-  	glNormal3d(0,1,0);
     glVertex3f(x,1,z);
   }
   glEnd();
 
   // The bottom lid
   glBegin(GL_TRIANGLE_FAN);
+  glNormal3f(0,-1,0);
   glVertex3f(0,0,0);
   for (i=0.0;i<=pi2;i+=delta) {
   	double x = radius * cos(i);
   	double z = radius * sin(i);
-  	glNormal3d(0,-1,0);
   	glVertex3f(x,0,z);
   }
   glEnd();

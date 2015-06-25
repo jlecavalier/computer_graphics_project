@@ -3,13 +3,36 @@
 void board(unsigned int grid_tex,
 	       unsigned int cyl_tex) {
 
-  float white[] = {1,1,1,1};
+  float white[] = {221.0/255.0,213.0/255.0,242.0/255.0,1};
   float shinyvec[1];
-  shinyvec[0] = 128.0;
+  shinyvec[0] = 32.0;
   glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
 
   glPushMatrix();
+
+  // White, so texture shows up right.
+  glColor3f(.6,.6,.6);
+  // Texture for the face
+  glEnable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D,grid_tex);
+  glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+  // Face of the board
+  glBegin(GL_QUADS);
+  // Upper left
+  glNormal3f(0,+1,0);
+  glTexCoord2f(.11,1);
+  glVertex3f(-1,0,-1);
+  // Upper right
+  glTexCoord2f(1.11,1);
+  glVertex3f(1,0,-1);
+  // Lower right
+  glTexCoord2f(1.11,0);
+  glVertex3f(1,0,1);
+  // Lower left
+  glTexCoord2f(.11,0);
+  glVertex3f(-1,0,1);
+  glEnd();
   
   // Bordering cylinders
   // left side
@@ -50,32 +73,6 @@ void board(unsigned int grid_tex,
   sphere(-1,0,-1,.045,
   	     90,0,0,
   	     cyl_tex);
-
-  glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
-  glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-
-  // White, so texture shows up right.
-  glColor3f(.6,.6,.6);
-  // Texture for the face
-  glEnable(GL_TEXTURE_2D);
-  glBindTexture(GL_TEXTURE_2D,grid_tex);
-  glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
-  // Face of the board
-  glBegin(GL_QUADS);
-  // Upper left
-  glNormal3f(0,+1,0);
-  glTexCoord2f(.11,1);
-  glVertex3f(-1,0,-1);
-  // Upper right
-  glTexCoord2f(1.11,1);
-  glVertex3f(1,0,-1);
-  // Lower right
-  glTexCoord2f(1.11,0);
-  glVertex3f(1,0,1);
-  // Lower left
-  glTexCoord2f(.11,0);
-  glVertex3f(-1,0,1);
-  glEnd();
 
   glPopMatrix();
   glDisable(GL_TEXTURE_2D);
