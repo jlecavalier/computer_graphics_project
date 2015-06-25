@@ -33,8 +33,29 @@ void board(unsigned int grid_tex,
   	       1.965,.03,
   	       300,cyl_tex);
 
+  // Corner Spheres
+  // lower left
+  sphere(-1,0,1,.045,
+  	     90,0,0,
+  	     cyl_tex);
+  // lower right
+  sphere(1,0,1,.045,
+  	     90,0,0,
+  	     cyl_tex);
+  // upper right
+  sphere(1,0,-1,.045,
+  	     90,0,0,
+  	     cyl_tex);
+  // upper left
+  sphere(-1,0,-1,.045,
+  	     90,0,0,
+  	     cyl_tex);
+
+  glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
+  glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+
   // White, so texture shows up right.
-  glColor3f(0,0,0);
+  glColor3f(.6,.6,.6);
   // Texture for the face
   glEnable(GL_TEXTURE_2D);
   glBindTexture(GL_TEXTURE_2D,grid_tex);

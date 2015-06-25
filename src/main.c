@@ -21,7 +21,15 @@ int debug=0;
 
 // Animation timer
 double t_offset;
+double frame;
+
+// Rotations for the board
 double thy=0;
+double thx=0;
+double thz=0;
+
+// Animation lengths
+const double tilt_frames = 1500;
 
 // Texture names
 unsigned int texture[2];
@@ -44,6 +52,8 @@ void display() {
   // Animation trigger
   int a_trigger = (animate_left || animate_right ||
   	               animate_up || animate_down);
+  // Background color
+  glClearColor(118.0/255.0,118.0/255.0,173.0/255.0,1);
   // Erase the window and the depth buffer
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   // Enable Z-Buffering
@@ -52,8 +62,6 @@ void display() {
   glLoadIdentity();
   // Point the camera.
   point_camera();
-  // Transform the scene accordingly
-  glRotated(0,0,1,0);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * LIGHTING  *
@@ -108,13 +116,17 @@ void display() {
    * ANIMATION *
    *************/
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  // Transform the scene accordingly
+  glRotated(thz,0,0,1);
+  glRotated(thx,1,0,0);
   // Animate the scene if it needs to be animated
-  if (animate_scene(animate_left,
-                    animate_right,
-                    animate_up,
-                    animate_down,
-                    t_offset) >= 3000) {
-  // The animation completed. Reset the 
+  frame = animate_scene(animate_left,
+                        animate_right,
+                        animate_up,
+                        animate_down,
+                        t_offset);
+  if (frame >= tilt_frames) {
+  // Tilt animation completed. Reset the 
   // animation triggers
     animate_right = 0;
     animate_up = 0;
@@ -198,9 +210,52 @@ void special(int key,int x,int y) {
 }
 
 void idle() {
-  Project(fov,asp,dim);
-  thy += 1;
+  double fo2 = (tilt_frames/2);
+  // Tilt left
+  if (animate_left) {
+    if ((thz < 45) && (frame < fo2)) {
+      thz += 1.1;
+    }
+    else {
+      thz -= 1.1;
+    }
+  }
+  // Tilt right
+  if (animate_right) {
+    if ((thz > -45) && (frame < fo2)) {
+      thz -= 1.1;
+    }
+    else {
+      thz += 1.1;
+    }
+  }
+  // Tilt up
+  if (animate_up) {
+    if ((thx > -45) && (frame < fo2)) {
+      thx -= 1.1;
+    }
+    else {
+      thx += 1.1;
+    }
+  }
+  // Tilt down
+  if (animate_down) {
+    if ((thx < 45) && (frame < fo2)) {
+      thx += 1.1;
+    }
+    else {
+      thx -= 1.1;
+    }
+  }
+
+  if (frame == 0) {
+  	thz=0;
+  	thx=0;
+  	thy=0;
+  }
+
   glutPostRedisplay();
+  Project(fov,asp,dim);
 }
 
 /*
@@ -225,7 +280,7 @@ int main(int argc, char* argv[]) {
   glutIdleFunc(idle);
   // Load textures
   texture[0] = LoadTexBMP("./src/textures/grid.bmp");
-  texture[1] = LoadTexBMP("./src/textures/grid.bmp");
+  texture[1] = LoadTexBMP("./src/textures/graph.bmp");
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();

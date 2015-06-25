@@ -20,7 +20,7 @@ void cylinder(double x,double y,double z,
   glScaled(1,h,1);
 
   // White so the texture shows up right
-  glColor3f(0.27,0.27,0.27);
+  glColor3f(0.2,0.2,0.2);
 
   // Texture
   glEnable(GL_TEXTURE_2D);
@@ -40,25 +40,23 @@ void cylinder(double x,double y,double z,
   	  double x1 = radius * cos(i+delta);
   	  double z0 = radius * sin(i);
   	  double z1 = radius * sin(i+delta);
-  	  double n_x = z1 - z0;
-  	  double n_z = x0 - x1;
   	  double t_x0 = i/pi2;
   	  double t_x1 = (i+delta)/pi2;
   	  glBegin(GL_QUADS);
 	  // Upper left
-	  glNormal3d(n_x,0,n_z);
+	  glNormal3d(x1,0,z1);
 	  glTexCoord2f(t_x0,h*12);
 	  glVertex3f(x1,1,z1);
 	  // Upper right
-	  glNormal3d(n_x,0,n_z);
+	  glNormal3d(x0,0,z0);
 	  glTexCoord2f(t_x1,h*12);
 	  glVertex3f(x0,1,z0);
 	  // Lower right
-	  glNormal3d(n_x,0,n_z);
+	  glNormal3d(x0,0,z0);
 	  glTexCoord2f(t_x1,0);
 	  glVertex3f(x0,0,z0);
 	  // Lower left
-	  glNormal3d(n_x,0,n_z);
+	  glNormal3d(x1,0,z1);
 	  glTexCoord2f(t_x0,0);
 	  glVertex3f(x1,0,z1);
 

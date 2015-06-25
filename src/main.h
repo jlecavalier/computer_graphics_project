@@ -41,6 +41,9 @@ void cylinder(double x,double y,double z,
 	          double thx,double thz,
 	          double h,double radius,
 	          double num_quads,unsigned int cyl_tex);
+void sphere(float x,float y,float z,double r,
+	        double thx,double thy,double thz,
+	        unsigned int tex);
 
 #ifdef __cplusplus
 }
