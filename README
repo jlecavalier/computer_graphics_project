@@ -1,3 +1,50 @@
-Hello, README! I'm the readme.
+This is the README for Jay LeCavalier's final project in computer graphics
 
 HOURS SPENT: 15
+
+CONTENTS:
+1. How to compile and run
+2. What it does
+3. Key Bindings
+4. Things to consider while grading
+5. What still needs to be done
+
+
+
+
+1. How to compile and run:
+
+Simply navigate to the directory containing this readme using your terminal and type "make".
+
+then, type "./main"
+
+
+
+2. What it does:
+
+This program will (eventually) be the graphical frontend for a puzzle game. The game is played by moving pieces around on a board. However, you don't move the pieces directly: you move the board. Moving a single piece moves all the pieces on the board.
+
+
+
+
+3. Key Bindings:
+
+The arrow keys tilt the board and move the (for the time being) only piece on the board.
+
+ESC quits the program.
+
+
+
+
+4. Things to consider while grading
+
+Please pay extra attention to the lighting and textures (especially for the glass-like hourglass piece). I got the surface normals right. Also, the board animation looks smooth and nice and doesn't exhibit any unexpected behavior (as for the hourglass, that's something I'll talk about in the next section).
+
+
+
+
+5. What still needs to be done: 
+
+I still need to work out a few kinks with the hourglass piece. For example, it doesn't always stay in the center of the squares on the board. In addition, it doesn't always rotate the way you would expect it to (even if it moves to the correct location). These will definitely be fixed by the time I submit the final project.
+
+I also want to start making more nice looking pieces that move around on the board differently than the hourglass does. I will have to make sure that the pieces don't do anything unexpected graphically (like passing through one another, etc.).
