@@ -34,6 +34,24 @@ const double tilt_frames = 1500;
 // Texture names
 unsigned int texture[3];
 
+// Hourglass transforms
+double hourglass_x=-5.2/6.0;
+double hourglass_y=0;
+double hourglass_z=5.2/6.0;
+double hourglass_thx=0;
+double hourglass_thz=0;
+double t_hourglass_x=-5.2/6.0;
+double t_hourglass_y=0;
+double t_hourglass_z=5.2/6.0;
+double t_hourglass_thx=0;
+double t_hourglass_thz=0;
+
+// Hourglass triggers
+int hourglass_up=0;
+int hourglass_down=0;
+int hourglass_left=0;
+int hourglass_right=0;
+
 static void ball(double x,double y,double z,double r)
 {
    //  Save transformation
@@ -119,6 +137,7 @@ void display() {
   // Transform the scene accordingly
   glRotated(thz,0,0,1);
   glRotated(thx,1,0,0);
+
   // Animate the scene if it needs to be animated
   frame = animate_scene(animate_left,
                         animate_right,
@@ -133,6 +152,40 @@ void display() {
     animate_down = 0;
     animate_left = 0;
   }
+
+  // Hourglass animation
+  // Hourlgass position
+  if (hourglass_x < t_hourglass_x) {
+  	hourglass_x += .05 * (1.0/6.0);
+  }
+  if (hourglass_x > t_hourglass_x) {
+  	hourglass_x -= .05 * (1.0/6.0);
+  }
+  if (hourglass_y > t_hourglass_y) {
+  	hourglass_y -= .01;
+  }
+  if (hourglass_y < t_hourglass_y) {
+  	hourglass_y += .01;
+  }
+  if (hourglass_z < t_hourglass_z) {
+  	hourglass_z += .05 * (1.0/6.0);
+  }
+  if (hourglass_z > t_hourglass_z) {
+  	hourglass_z -= .05 * (1.0/6.0);
+  }
+  // Hourglass rotation
+  if (hourglass_thx < t_hourglass_thx) {
+  	hourglass_thx += 5;
+  }
+  if (hourglass_thx > t_hourglass_thx) {
+  	hourglass_thx -= 5;
+  }
+  if (hourglass_thz < t_hourglass_thz) {
+  	hourglass_thz += 5;
+  }
+  if (hourglass_thz > t_hourglass_thz) {
+  	hourglass_thz -= 5;
+  }
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    *  OBJECTS  *
@@ -141,9 +194,9 @@ void display() {
   board(texture[0],
   	    texture[1]);
 
-  hourglass(0,0,0,
+  hourglass(hourglass_x,hourglass_y,hourglass_z,
   	        .05,.5,
-  	        0,0,
+  	        hourglass_thx,hourglass_thz,
   	        texture[2]);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
@@ -196,18 +249,38 @@ void special(int key,int x,int y) {
     if (key == GLUT_KEY_RIGHT) {
       animate_right = 1;
       t_offset = glutGet(GLUT_ELAPSED_TIME)/1.06;
+      if (hourglass_x < 5.2/6.0) {
+      	t_hourglass_x = hourglass_x + (1.0/6.0);
+      	t_hourglass_thz = hourglass_thz - 180;
+      	t_hourglass_y = .25 - hourglass_y;
+      }
     }
     if (key == GLUT_KEY_LEFT) {
       animate_left = 1;
       t_offset = glutGet(GLUT_ELAPSED_TIME)/1.06;
+      if (hourglass_x > -5.2/6.0) {
+      	t_hourglass_x = hourglass_x - (1.0/6.0);
+      	t_hourglass_thz = hourglass_thz + 180;
+      	t_hourglass_y = .25 - hourglass_y;
+      }
     }
     if (key == GLUT_KEY_UP) {
       animate_up = 1;
       t_offset = glutGet(GLUT_ELAPSED_TIME)/1.06;
+      if (hourglass_z > -5.2/6.0) {
+      	t_hourglass_z = hourglass_z - (1.0/6.0);
+      	t_hourglass_thx = hourglass_thx - 180;
+      	t_hourglass_y = .25 - hourglass_y;
+      }
     }
     if (key == GLUT_KEY_DOWN) {
       animate_down = 1;
       t_offset = glutGet(GLUT_ELAPSED_TIME)/1.06;
+      if (hourglass_z < 5.2/6.0) {
+      	t_hourglass_z = hourglass_z + (1.0/6.0);
+      	t_hourglass_thx = hourglass_thx + 180;
+      	t_hourglass_y = .25 - hourglass_y;
+      }
     }
   }
   glutPostRedisplay();
@@ -286,7 +359,7 @@ int main(int argc, char* argv[]) {
   // Load textures
   texture[0] = LoadTexBMP("./src/textures/grid.bmp");
   texture[1] = LoadTexBMP("./src/textures/graph.bmp");
-  texture[2] = LoadTexBMP("./src/textures/glass.bmp");
+  texture[2] = LoadTexBMP("./src/textures/glass2.bmp");
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();
