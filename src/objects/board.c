@@ -39,22 +39,26 @@ void board(unsigned int grid_tex,
   cylinder(-1,0,.98,
   	       270,0,
   	       1.965,.03,
-  	       300,cyl_tex);
+  	       300,cyl_tex,
+  	       cyl_tex);
   // right side
   cylinder(1,0,.98,
   	       270,0,
   	       1.965,.03,
-  	       300,cyl_tex);
+  	       300,cyl_tex,
+  	       cyl_tex);
   // back side
   cylinder(-.98,0,-1,
   	       0,270,
   	       1.965,.03,
-  	       300,cyl_tex);
+  	       300,cyl_tex,
+  	       cyl_tex);
   // front side
   cylinder(-.98,0,1,
   	       0,270,
   	       1.965,.03,
-  	       300,cyl_tex);
+  	       300,cyl_tex,
+  	       cyl_tex);
 
   // Corner Spheres
   // lower left

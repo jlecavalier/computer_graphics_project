@@ -32,7 +32,7 @@ double thz=0;
 const double tilt_frames = 1500;
 
 // Texture names
-unsigned int texture[3];
+unsigned int texture[5];
 
 // Hourglass transforms
 double hourglass_x=-5.2/6.0;
@@ -198,6 +198,10 @@ void display() {
   	        .05,.5,
   	        hourglass_thx,hourglass_thz,
   	        texture[2]);
+  
+  fountain(texture[3],
+  	       texture[4]);
+
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * DEBUGGING *
@@ -360,6 +364,8 @@ int main(int argc, char* argv[]) {
   texture[0] = LoadTexBMP("./src/textures/grid.bmp");
   texture[1] = LoadTexBMP("./src/textures/graph.bmp");
   texture[2] = LoadTexBMP("./src/textures/glass2.bmp");
+  texture[3] = LoadTexBMP("./src/textures/stone.bmp");
+  texture[4] = LoadTexBMP("./src/textures/water.bmp");
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();

@@ -40,7 +40,8 @@ void board(unsigned int grid_tex,
 void cylinder(double x,double y,double z,
 	          double thx,double thz,
 	          double h,double radius,
-	          double num_quads,unsigned int cyl_tex);
+	          double num_quads,unsigned int cyl_tex,
+	          unsigned int cap_tex);
 void sphere(float x,float y,float z,double r,
 	        double thx,double thy,double thz,
 	        unsigned int tex);
@@ -52,6 +53,9 @@ void hourglass(double x,double y,double z,
 	           double radius,double height,
 	           double thx,double thz,
 	           unsigned int tex);
+void fountain(unsigned int stone_tex,
+	          unsigned int water_tex);
+void fountain_side(float thy,unsigned int stone_tex);
 
 #ifdef __cplusplus
 }

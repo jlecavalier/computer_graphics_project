@@ -3,7 +3,8 @@
 void cylinder(double x,double y,double z,
 	          double thx,double thz,
 	          double h,double radius,
-	          double num_quads,unsigned int cyl_tex) {
+	          double num_quads,unsigned int cyl_tex,
+	          unsigned int cap_tex) {
 
   float white[] = {221.0/255.0,213.0/255.0,242.0/255.0,1};
   float shinyvec[1];
@@ -45,11 +46,11 @@ void cylinder(double x,double y,double z,
   	  double t_x1 = (i+delta)/pi2;
 	  // Upper left
 	  glNormal3f(x1,0,z1);
-	  glTexCoord2f(t_x0,h*12);
+	  glTexCoord2f(t_x0,h);
 	  glVertex3f(x1,1,z1);
 	  // Upper right
 	  glNormal3f(x0,0,z0);
-	  glTexCoord2f(t_x1,h*12);
+	  glTexCoord2f(t_x1,h);
 	  glVertex3f(x0,1,z0);
 	  // Lower right
 	  glNormal3f(x0,0,z0);
@@ -61,16 +62,19 @@ void cylinder(double x,double y,double z,
 	  glVertex3f(x1,0,z1);
   }
   glEnd();
-  glDisable(GL_TEXTURE_2D);
+
+  glBindTexture(GL_TEXTURE_2D,cap_tex);
 
   // The top lid
   glColor3f(0,0,0);
   glBegin(GL_TRIANGLE_FAN);
   glNormal3f(0,1,0);
+  glTexCoord2f(.5,.5);
   glVertex3f(0,1,0);
   for (i=0.0;i<=pi2;i+=delta) {
   	double x = radius * cos(i);
   	double z = radius * sin(i);
+  	glTexCoord2f(cos(i),sin(i));
     glVertex3f(x,1,z);
   }
   glEnd();
@@ -78,13 +82,17 @@ void cylinder(double x,double y,double z,
   // The bottom lid
   glBegin(GL_TRIANGLE_FAN);
   glNormal3f(0,-1,0);
+  glTexCoord2f(.5,.5);
   glVertex3f(0,0,0);
   for (i=0.0;i<=pi2;i+=delta) {
   	double x = radius * cos(i);
   	double z = radius * sin(i);
+  	glTexCoord2f(cos(i),sin(i));
   	glVertex3f(x,0,z);
   }
   glEnd();
 
   glPopMatrix();
+
+  glDisable(GL_TEXTURE_2D);
 }
