@@ -17,22 +17,6 @@ void board(unsigned int grid_tex,
   glEnable(GL_TEXTURE_2D);
   glBindTexture(GL_TEXTURE_2D,grid_tex);
   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
-  // Face of the board
-  glBegin(GL_QUADS);
-  // Upper left
-  glNormal3f(0,+1,0);
-  glTexCoord2f(.11,1);
-  glVertex3f(-1,0,-1);
-  // Upper right
-  glTexCoord2f(1.11,1);
-  glVertex3f(1,0,-1);
-  // Lower right
-  glTexCoord2f(1.11,0);
-  glVertex3f(1,0,1);
-  // Lower left
-  glTexCoord2f(.11,0);
-  glVertex3f(-1,0,1);
-  glEnd();
   
   // Bordering cylinders
   // left side

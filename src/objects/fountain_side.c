@@ -10,41 +10,44 @@ void fountain_side(float thy,unsigned int stone_tex) {
   glPushMatrix();
 
   // Transforms
-  //glRotated(-25,0,0,1);
   glRotated(thy,0,1,0);
-  glScaled(5,1,5);
+  glScaled(10,1.25,10);
 
   glEnable(GL_TEXTURE_2D);
   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
   glBindTexture(GL_TEXTURE_2D,stone_tex);
 
-  glColor3f(1,1,1);
+  glColor3f(0.23,0.23,0.23);
 
   const double pi2 = M_PI * 2;
+  const double sinthy = Cos(thy);
+  const double sinthyp = Cos(thy+2);
+  const double costhy = Sin(thy);
+  const double costhyp = Sin(thy+2);
 
   double i;
-  double delta = pi2 / 203;
+  double delta = pi2 / 51.5;
   glBegin(GL_QUADS);
   for (i=0.0;i<=pi2;i+=delta) {
-  	double x0 = (i/100)*cos(20*i);
-  	double x1 = ((i+delta)/100)*cos(20*(i+delta));
-  	double ny0 = (cos(20*i)-(i*20*(sin(20*i))))/20;
-  	double ny1 = (cos(20*(i+delta))-((i+delta)*20*(sin(20*(i+delta)))))/20;
+  	double x0 = (i/75)*cos(i);
+  	double x1 = ((i+delta)/75)*cos((i+delta));
+  	double ny0 = (cos(i)-(i*(sin(i))))/75;
+  	double ny1 = (cos((i+delta))-((i+delta)*(sin((i+delta)))))/75;
   	// Upper left
-  	glNormal3f(1,ny1,0);
-  	glTexCoord2f(0,(i+delta)/pi2);
+  	glNormal3f(sinthy,ny1,costhy);
+  	glTexCoord2f(sinthy,(i+delta)/pi2);
   	glVertex3f(x1,(i+delta)/pi2,.002);
   	// Upper right
-  	glNormal3f(1,ny1,0);
-  	glTexCoord2f(1,(i+delta)/pi2);
+  	glNormal3f(sinthyp,ny1,costhyp);
+  	glTexCoord2f(sinthyp,(i+delta)/pi2);
   	glVertex3f(x1,(i+delta)/pi2,-.002);
   	// Lower right
-  	glNormal3f(1,ny0,0);
-  	glTexCoord2f(1,i/pi2);
+  	glNormal3f(sinthyp,ny0,costhyp);
+  	glTexCoord2f(sinthyp,i/pi2);
   	glVertex3f(x0,i/pi2,-.002);
   	// Lower left
-  	glNormal3f(1,ny0,0);
-  	glTexCoord2f(0,i/pi2);
+  	glNormal3f(sinthy,ny0,costhy);
+  	glTexCoord2f(sinthy,i/pi2);
   	glVertex3f(x0,i/pi2,.002);
   }
   glEnd();

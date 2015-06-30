@@ -32,7 +32,7 @@ double thz=0;
 const double tilt_frames = 1500;
 
 // Texture names
-unsigned int texture[5];
+unsigned int texture[7];
 
 // Hourglass transforms
 double hourglass_x=-5.2/6.0;
@@ -51,6 +51,13 @@ int hourglass_up=0;
 int hourglass_down=0;
 int hourglass_left=0;
 int hourglass_right=0;
+
+// For the grass blades
+double dx_mat[5][5];
+double th_mat[5][5];
+
+// Particle stuff
+PARTICLES particles[200];
 
 static void ball(double x,double y,double z,double r)
 {
@@ -193,14 +200,22 @@ void display() {
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   board(texture[0],
   	    texture[1]);
+  
+  fountain(texture[3],
+  	       texture[4]);
+
+  double i;
+  double j;
+  for (i=-1;i<1;i+=.2) {
+  	for (j=-1;j<1;j+=.2) {
+  		grass_block(i,.0001,j,dx_mat,th_mat,texture[5],texture[6]);
+  	}
+  }
 
   hourglass(hourglass_x,hourglass_y,hourglass_z,
   	        .05,.5,
   	        hourglass_thx,hourglass_thz,
   	        texture[2]);
-  
-  fountain(texture[3],
-  	       texture[4]);
 
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
@@ -344,6 +359,15 @@ void idle() {
   Start up GLUT and tell it what to do
 */
 int main(int argc, char* argv[]) {
+  srand(time(NULL));
+  int i;
+  int j;
+  for (i=0;i<5;i++) {
+    for (j=0;j<5;j++) {
+      dx_mat[i][j] = (drand48()*.013)+.001;
+      th_mat[i][j] = ((double)rand()/360);
+    }
+  }
   // Initialize GLUT
   glutInit(&argc,argv);
   // Request double buffer, true color, z buffering
@@ -362,10 +386,12 @@ int main(int argc, char* argv[]) {
   glutIdleFunc(idle);
   // Load textures
   texture[0] = LoadTexBMP("./src/textures/grid.bmp");
-  texture[1] = LoadTexBMP("./src/textures/graph.bmp");
+  texture[1] = LoadTexBMP("./src/textures/wood.bmp");
   texture[2] = LoadTexBMP("./src/textures/glass2.bmp");
   texture[3] = LoadTexBMP("./src/textures/stone.bmp");
   texture[4] = LoadTexBMP("./src/textures/water.bmp");
+  texture[5] = LoadTexBMP("./src/textures/grass_blade.bmp");
+  texture[6] = LoadTexBMP("./src/textures/grass.bmp");
   // Pass control to GLUT so it can interact with the user
   ErrCheck("init");
   glutMainLoop();

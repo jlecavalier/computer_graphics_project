@@ -63,12 +63,16 @@ void cylinder(double x,double y,double z,
   }
   glEnd();
 
+  shinyvec[0] = 4.0;
+  glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
+  glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+
   glBindTexture(GL_TEXTURE_2D,cap_tex);
 
   // The top lid
-  glColor3f(0,0,0);
+  glColor3f(.055,.055,.055);
   glBegin(GL_TRIANGLE_FAN);
-  glNormal3f(0,1,0);
+  glNormal3f(0,.8,0);
   glTexCoord2f(.5,.5);
   glVertex3f(0,1,0);
   for (i=0.0;i<=pi2;i+=delta) {

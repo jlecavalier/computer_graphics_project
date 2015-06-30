@@ -22,6 +22,29 @@
 extern "C" {
 #endif
 
+// PARTICLE TYPE
+typedef struct {
+  // Location
+  double x;
+  double y;
+  double z;
+  // horizontal motion
+  double x_m;
+  double z_m;
+  // Color
+  double r;
+  double g;
+  double b;
+  // Rotation angle
+  double th;
+  // vertical acceleration
+  double accel;
+  // vertical deceleration
+  double decel;
+  // Scaling
+  double z_sc;
+}PARTICLES;
+
 // AUXILIARY
 void Print(const char* format , ...);
 void Project(int fov,double asp,double dim);
@@ -32,6 +55,7 @@ void Vertex(int th,int ph,int out);
 void point_camera();
 double animate_scene (int l,int r,int u,int d,
 	                  double t_offset);
+void init_particles(/*PARTICLES particles[200]*/);
 
 // OBJECTS
 void axes(double length);
@@ -56,6 +80,12 @@ void hourglass(double x,double y,double z,
 void fountain(unsigned int stone_tex,
 	          unsigned int water_tex);
 void fountain_side(float thy,unsigned int stone_tex);
+void grass_block(double x,double y,double z,double dx_mat[5][5],double th_mat[5][5],
+                 unsigned int tex,unsigned int tex_b);
+void grass_blade(double x,double y,double z,
+	             double dx,double dy,double dz,
+	             double th,double thx,double thz,
+                 unsigned int tex);
 
 #ifdef __cplusplus
 }
