@@ -11,7 +11,7 @@ void fountain_side(float thy,unsigned int stone_tex) {
 
   // Transforms
   glRotated(thy,0,1,0);
-  glScaled(10,1.25,10);
+  glScaled(9.5,1.25,9.5);
 
   glEnable(GL_TEXTURE_2D);
   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);

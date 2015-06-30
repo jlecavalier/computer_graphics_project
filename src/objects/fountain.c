@@ -115,7 +115,3 @@ void fountain(unsigned int stone_tex,
   glPopMatrix();
 
 }
-
-void test() {
-  printf("hello, test!\n\n\n");
-}

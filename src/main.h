@@ -55,7 +55,9 @@ void Vertex(int th,int ph,int out);
 void point_camera();
 double animate_scene (int l,int r,int u,int d,
 	                  double t_offset);
-void init_particles(/*PARTICLES particles[200]*/);
+void init_particles(PARTICLES particles[500]);
+void update_particles(PARTICLES particles[500]);
+void draw_particles(PARTICLES particles[500]);
 
 // OBJECTS
 void axes(double length);

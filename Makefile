@@ -7,7 +7,7 @@ all: $(EXE)
 # Variables for readability
 AUX=src/auxiliary/
 OBJ=src/objects/
-AUXLIB=$(AUX)print.o $(AUX)project.o $(AUX)loadtexbmp.o $(AUX)errcheck.o $(AUX)fatal.o $(AUX)vertex.o $(AUX)point_camera.o $(AUX)animate_scene.o $(AUX)particles.o
+AUXLIB=$(AUX)print.o $(AUX)project.o $(AUX)loadtexbmp.o $(AUX)errcheck.o $(AUX)fatal.o $(AUX)vertex.o $(AUX)point_camera.o $(AUX)animate_scene.o $(AUX)particles.o $(AUX)update_particles.o $(AUX)draw_particles.o
 OBJLIB=$(OBJ)axes.o $(OBJ)board.o $(OBJ)cylinder.o $(OBJ)sphere.o $(OBJ)cone.o $(OBJ)hourglass.o $(OBJ)fountain.o $(OBJ)fountain_side.o $(OBJ)grass_blade.o $(OBJ)grass_block.o
 
 #  MinGW
@@ -41,6 +41,8 @@ src/auxiliary/vertex.o: $(AUX)vertex.c src/main.h
 src/auxiliary/point_camera.o: $(AUX)point_camera.c src/main.h
 src/auxiliary/animate_scene.o: $(AUX)animate_scene.c src/main.h
 src/auxiliary/particles.o: $(AUX)particles.c src/main.h
+src/auxiliary/update_particles.o: $(AUX)update_particles.c src/main.h
+src/auxiliary/draw_particles.o: $(AUX)draw_particles.c src/main.h
 # Objects
 src/objects/axes.o: $(OBJ)axes.c src/main.h
 src/objects/board.o: $(OBJ)board.c src/main.h

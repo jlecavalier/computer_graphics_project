@@ -57,7 +57,7 @@ double dx_mat[5][5];
 double th_mat[5][5];
 
 // Particle stuff
-PARTICLES particles[200];
+PARTICLES particles[500];
 
 static void ball(double x,double y,double z,double r)
 {
@@ -87,6 +87,9 @@ void display() {
   glLoadIdentity();
   // Point the camera.
   point_camera();
+  // Update the particles.
+  update_particles(particles);
+
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * LIGHTING  *
@@ -216,6 +219,8 @@ void display() {
   	        .05,.5,
   	        hourglass_thx,hourglass_thz,
   	        texture[2]);
+
+  draw_particles(particles);
 
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
@@ -359,6 +364,7 @@ void idle() {
   Start up GLUT and tell it what to do
 */
 int main(int argc, char* argv[]) {
+  // Random grass positions/sizes
   srand(time(NULL));
   int i;
   int j;
@@ -368,6 +374,8 @@ int main(int argc, char* argv[]) {
       th_mat[i][j] = ((double)rand()/360);
     }
   }
+  // Initialize particles
+  init_particles(particles);
   // Initialize GLUT
   glutInit(&argc,argv);
   // Request double buffer, true color, z buffering
