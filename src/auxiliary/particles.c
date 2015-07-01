@@ -12,8 +12,8 @@ void init_particles(PARTICLES particles[500]) {
     // Make the particles move in a random
     // direction outward from the lotus
   	double d = (drand48()*360);
-  	particles[i].x_m = .006 * Cos(d);
-  	particles[i].z_m = .006 * Sin(d);
+  	particles[i].x_m = .005 * Cos(d);
+  	particles[i].z_m = .005 * Sin(d);
     
     // Particles are blue, like water.
     particles[i].r = 128.0/256.0;
@@ -21,7 +21,7 @@ void init_particles(PARTICLES particles[500]) {
     particles[i].b = 232.0/256.0;
 
     // Make the particles tiny
-    particles[i].z_sc = .005;
+    particles[i].z_sc = .0045;
 
     // Particles do not need to rotate
     particles[i].th = 0;
