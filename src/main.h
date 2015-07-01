@@ -69,7 +69,8 @@ void cylinder(double x,double y,double z,
 	          double thx,double thz,
 	          double h,double radius,
 	          double num_quads,unsigned int cyl_tex,
-	          unsigned int cap_tex);
+	          unsigned int cap_tex,
+	          int tree);
 void sphere(float x,float y,float z,double r,
 	        double thx,double thy,double thz,
 	        unsigned int tex);
@@ -92,6 +93,7 @@ void grass_blade(double x,double y,double z,
 	             double th,double thx,double thz,
                  unsigned int tex);
 void hourglass_side(float thy,unsigned int glass_tex);
+void tree(float x1, float y1, float length1, float angle1, int depth, float rando);
 
 #ifdef __cplusplus
 }

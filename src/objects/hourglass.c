@@ -57,13 +57,15 @@ void hourglass(double x,double y,double z,
            0,0,
            height*4,.15,
            51.5,wood_tex,
-           wood_tex);
+           wood_tex,
+           0);
 
   cylinder(-1.3,0,0,
            0,0,
            height*4,.15,
            51.5,wood_tex,
-           wood_tex);
+           wood_tex,
+           0);
 
   for (i=0.0;i<=360;i+=1) {
     hourglass_side(i,tex);

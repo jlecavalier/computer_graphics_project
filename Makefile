@@ -1,5 +1,5 @@
-# We are compiling main
-EXE=main
+# We are compiling final
+EXE=final
 
 # Main target
 all: $(EXE)
@@ -8,7 +8,7 @@ all: $(EXE)
 AUX=src/auxiliary/
 OBJ=src/objects/
 AUXLIB=$(AUX)print.o $(AUX)project.o $(AUX)loadtexbmp.o $(AUX)errcheck.o $(AUX)fatal.o $(AUX)vertex.o $(AUX)point_camera.o $(AUX)animate_scene.o $(AUX)particles.o $(AUX)update_particles.o $(AUX)draw_particles.o
-OBJLIB=$(OBJ)axes.o $(OBJ)board.o $(OBJ)cylinder.o $(OBJ)sphere.o $(OBJ)cone.o $(OBJ)hourglass.o $(OBJ)fountain.o $(OBJ)fountain_side.o $(OBJ)grass_blade.o $(OBJ)grass_block.o $(OBJ)hourglass_side.o
+OBJLIB=$(OBJ)axes.o $(OBJ)board.o $(OBJ)cylinder.o $(OBJ)sphere.o $(OBJ)cone.o $(OBJ)hourglass.o $(OBJ)fountain.o $(OBJ)fountain_side.o $(OBJ)grass_blade.o $(OBJ)grass_block.o $(OBJ)hourglass_side.o $(OBJ)tree.o
 
 #  MinGW
 ifeq "$(OS)" "Windows_NT"
@@ -55,6 +55,7 @@ src/objects/fountain_side.o: $(OBJ)fountain_side.c src/main.h
 src/objects/grass_blade.o: $(OBJ)grass_blade.c src/main.h
 src/objects/grass_block.o: $(OBJ)grass_block.c src/main.h
 src/objects/hourglass_side.o: $(OBJ)hourglass_side.c src/main.h
+src/objects/tree.o: $(OBJ)tree.c src/main.h
 
 # Create archives
 src/main.a:$(AUXLIB) $(OBJLIB)
@@ -71,7 +72,7 @@ src/%.cpp.o:
 	g++ -c $(CFLG) $<
 
 # Link
-main:src/main.o src/main.a
+final:src/main.o src/main.a
 	gcc -O3 -o $@ $^ $(LIBS)
 
 # Clean

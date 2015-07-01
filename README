@@ -1,13 +1,12 @@
 This is the README for Jay LeCavalier's final project in computer graphics
 
-HOURS SPENT: 26
+HOURS SPENT: 28
 
 CONTENTS:
 1. How to compile and run
 2. What it does
 3. Key Bindings
 4. Things to consider while grading
-5. What still needs to be done
 
 
 
@@ -16,7 +15,7 @@ CONTENTS:
 
 Simply navigate to the directory containing this readme using your terminal and type "make".
 
-then, type "./main"
+then, type "./final"
 
 
 
@@ -38,13 +37,10 @@ ESC quits the program.
 
 4. Things to consider while grading
 
-Please pay extra attention to the lighting and textures (especially for the glass-like hourglass piece). I got the surface normals right. Also, the board animation looks smooth and nice and doesn't exhibit any unexpected behavior (as for the hourglass, that's something I'll talk about in the next section).
+- The surface normals are correct. The lighting makes the objects look nice (especially the wood and the grass blades. The wood looks shiny, like it has a layer of gloss on it.).
 
+- The blades of grass each have a randomly generated height, width, bend, and rotation every time you run the program! Even though there are hundreds of grass blades, the program still runs smoothly.
 
+- The body of the fountain features a unique shape, which required some pretty intense trigonometry to design. This also holds true for the shape of the hourglass body, which was just two cones in the previous version.
 
-
-5. What still needs to be done: 
-
-I still need to work out a few kinks with the hourglass piece. For example, it doesn't always stay in the center of the squares on the board. In addition, it doesn't always rotate the way you would expect it to (even if it moves to the correct location). These will definitely be fixed by the time I submit the final project.
-
-I also want to start making more nice looking pieces that move around on the board differently than the hourglass does. I will have to make sure that the pieces don't do anything unexpected graphically (like passing through one another, etc.).
+- The top of the fountain features a particle generator. I learned about particles mostly from this site: http://www.swiftless.com/tutorials/opengl/particles.html

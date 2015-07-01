@@ -4,7 +4,8 @@ void cylinder(double x,double y,double z,
 	          double thx,double thz,
 	          double h,double radius,
 	          double num_quads,unsigned int cyl_tex,
-	          unsigned int cap_tex) {
+	          unsigned int cap_tex,
+            int tree) {
 
   float white[] = {221.0/255.0,213.0/255.0,242.0/255.0,1};
   float shinyvec[1];
@@ -12,7 +13,9 @@ void cylinder(double x,double y,double z,
   glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
 
-  glPushMatrix();
+  if (!tree) {
+    glPushMatrix();
+  }
 
   // Transformations
   glTranslated(x,y,z);
@@ -96,7 +99,9 @@ void cylinder(double x,double y,double z,
   }
   glEnd();
 
-  glPopMatrix();
+  if (!tree) {
+    glPopMatrix();
+  }
 
   glDisable(GL_TEXTURE_2D);
 }

@@ -59,6 +59,9 @@ double th_mat[5][5];
 // Particle stuff
 PARTICLES particles[500];
 
+// Tree stuff
+float rando;
+
 void display() {
   // Animation trigger
   int a_trigger = (animate_left || animate_right ||
@@ -362,6 +365,8 @@ int main(int argc, char* argv[]) {
       th_mat[i][j] = ((double)rand()/360);
     }
   }
+  // Tree stuff
+  rando = (drand48()*.013);
   // Initialize particles
   init_particles(particles);
   // Initialize GLUT

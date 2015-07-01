@@ -27,7 +27,8 @@ void fountain(unsigned int stone_tex,
   	       0,0,
   	       .2,1,
   	       103,stone_tex,
-  	       water_tex);
+  	       water_tex,
+           0);
 
   // Bowl at base
   glEnable(GL_TEXTURE_2D);
