@@ -41,7 +41,7 @@ double hourglass_z=5.2/6.0;
 double hourglass_thx=0;
 double hourglass_thz=0;
 double t_hourglass_x=-5.2/6.0;
-double t_hourglass_y=0;
+double t_hourglass_y=0.001;
 double t_hourglass_z=5.2/6.0;
 double t_hourglass_thx=0;
 double t_hourglass_thz=0;
@@ -58,20 +58,6 @@ double th_mat[5][5];
 
 // Particle stuff
 PARTICLES particles[500];
-
-static void ball(double x,double y,double z,double r)
-{
-   //  Save transformation
-   glPushMatrix();
-   //  Offset, scale and rotate
-   glTranslated(x,y,z);
-   glScaled(r,r,r);
-   //  White ball
-   glColor3f(1,1,1);
-   glutSolidSphere(1.0,16,16);
-   //  Undo transofrmations
-   glPopMatrix();
-}
 
 void display() {
   // Animation trigger
@@ -90,6 +76,11 @@ void display() {
   // Update the particles.
   update_particles(particles);
 
+  // Draw the background:
+  //sphere(0,0,0,3,
+  //	     0,0,0,
+  //	     texture[0]);
+
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * LIGHTING  *
@@ -102,7 +93,6 @@ void display() {
 
   // Light 0
   float Position0[] = {.15,1,1,1};
-  //ball(Position0[0],Position0[1],Position0[2],0.1);
   glEnable(GL_NORMALIZE);
   glEnable(GL_LIGHTING);
   glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
@@ -115,7 +105,6 @@ void display() {
 
   // Light 1
   float Position1[] = {-.15,1,-1,1};
-  //ball(Position1[0],Position1[1],Position1[2],0.1);
   glEnable(GL_LIGHT1);
   glLightfv(GL_LIGHT1,GL_AMBIENT,Ambient);
   glLightfv(GL_LIGHT1,GL_DIFFUSE,Diffuse);
@@ -124,7 +113,6 @@ void display() {
 
   // Light 2
   float Position2[] = {-1,1,-.15,1};
-  //ball(Position2[0],Position2[1],Position2[2],0.1);
   glEnable(GL_LIGHT2);
   glLightfv(GL_LIGHT2,GL_AMBIENT,Ambient);
   glLightfv(GL_LIGHT2,GL_DIFFUSE,Diffuse);
@@ -133,7 +121,6 @@ void display() {
 
   // Light 3
   float Position3[] = {1,1,.15,1};
-  //ball(Position3[0],Position3[1],Position3[2],0.1);
   glEnable(GL_LIGHT3);
   glLightfv(GL_LIGHT3,GL_AMBIENT,Ambient);
   glLightfv(GL_LIGHT3,GL_DIFFUSE,Diffuse);
@@ -215,15 +202,14 @@ void display() {
   	}
   }
 
-  hourglass(hourglass_x,hourglass_y,hourglass_z,
-  	        .05,.5,
-  	        hourglass_thx,hourglass_thz,
-  	        texture[2]);
-
   draw_particles(particles,
   	             texture[7],
   	             texture[8]);
 
+  hourglass(hourglass_x,hourglass_y,hourglass_z,
+  	        .05,.25,
+  	        hourglass_thx,hourglass_thz,
+  	        texture[2],texture[1]);
   //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   /*************
    * DEBUGGING *
@@ -278,7 +264,7 @@ void special(int key,int x,int y) {
       if (hourglass_x < 5.2/6.0) {
       	t_hourglass_x = hourglass_x + (1.0/6.0);
       	t_hourglass_thz = hourglass_thz - 180;
-      	t_hourglass_y = .25 - hourglass_y;
+      	t_hourglass_y = .27 - hourglass_y;
       }
     }
     if (key == GLUT_KEY_LEFT) {
@@ -287,7 +273,7 @@ void special(int key,int x,int y) {
       if (hourglass_x > -5.2/6.0) {
       	t_hourglass_x = hourglass_x - (1.0/6.0);
       	t_hourglass_thz = hourglass_thz + 180;
-      	t_hourglass_y = .25 - hourglass_y;
+      	t_hourglass_y = .27 - hourglass_y;
       }
     }
     if (key == GLUT_KEY_UP) {
@@ -296,7 +282,7 @@ void special(int key,int x,int y) {
       if (hourglass_z > -5.2/6.0) {
       	t_hourglass_z = hourglass_z - (1.0/6.0);
       	t_hourglass_thx = hourglass_thx - 180;
-      	t_hourglass_y = .25 - hourglass_y;
+      	t_hourglass_y = .27 - hourglass_y;
       }
     }
     if (key == GLUT_KEY_DOWN) {
@@ -305,7 +291,7 @@ void special(int key,int x,int y) {
       if (hourglass_z < 5.2/6.0) {
       	t_hourglass_z = hourglass_z + (1.0/6.0);
       	t_hourglass_thx = hourglass_thx + 180;
-      	t_hourglass_y = .25 - hourglass_y;
+      	t_hourglass_y = .27 - hourglass_y;
       }
     }
   }
@@ -397,7 +383,7 @@ int main(int argc, char* argv[]) {
   // Load textures
   texture[0] = LoadTexBMP("./src/textures/grid.bmp");
   texture[1] = LoadTexBMP("./src/textures/wood.bmp");
-  texture[2] = LoadTexBMP("./src/textures/glass2.bmp");
+  texture[2] = LoadTexBMP("./src/textures/glass3.bmp");
   texture[3] = LoadTexBMP("./src/textures/stone.bmp");
   texture[4] = LoadTexBMP("./src/textures/water.bmp");
   texture[5] = LoadTexBMP("./src/textures/grass_blade.bmp");

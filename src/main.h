@@ -80,7 +80,8 @@ void cone(double x,double y,double z,
 void hourglass(double x,double y,double z,
 	           double radius,double height,
 	           double thx,double thz,
-	           unsigned int tex);
+	           unsigned int tex,
+	           unsigned int wood_tex);
 void fountain(unsigned int stone_tex,
 	          unsigned int water_tex);
 void fountain_side(float thy,unsigned int stone_tex);
@@ -90,6 +91,7 @@ void grass_blade(double x,double y,double z,
 	             double dx,double dy,double dz,
 	             double th,double thx,double thz,
                  unsigned int tex);
+void hourglass_side(float thy,unsigned int glass_tex);
 
 #ifdef __cplusplus
 }
